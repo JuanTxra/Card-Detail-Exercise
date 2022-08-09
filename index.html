@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+
+  <title>Frontend Mentor | Interactive card details form</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    body {
+      font-size: 18px;
+    }
+
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+
+    main {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .backgroundFlex {
+      display: flex;
+      justify-content: space-between;
+      max-width: 80%;
+      align-items: center;
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    .backgroundImage {
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+
+    .backgroundImageMobile {
+      display: none;
+    }
+
+    .frontCard {
+      background-image: url(./images/bg-card-front.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 447px;
+      height: 245px;
+      position: absolute;
+      left: 8em;
+      top: 5em;
+      -webkit-box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      -moz-box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      border-radius: 15px;
+    }
+
+    .ballFlex {
+      display: flex;
+      align-items: center;
+      margin: 2em 0 0 2em;
+    }
+
+    .whiteBall {
+      border-radius: 50%;
+      background-color: white;
+      width: 40px;
+      height: 40px;
+    }
+
+    .whiteBallOnlyBorder {
+      border-radius: 50%;
+      background-color: rgb(255, 255, 255, 0);
+      border: 1px solid white;
+      width: 15px;
+      height: 15px;
+      margin: 0 0 0 1em;
+    }
+
+    .frontCardInfoDiv {
+      position: relative;
+      top: 4em;
+      left: 2em;
+      letter-spacing: 3px;
+      color: white;
+    }
+
+    .frontCardInfoDiv .frontCardTopInfo {
+      font-size: 1.6em;
+    }
+
+    .frontCardLowerInfo {
+      display: flex;
+      margin-top: 2em;
+      justify-content: space-between;
+      max-width: 87%;
+    }
+
+    .frontCardDateInfo {
+      display: flex;
+    }
+
+    .backCard {
+      background-image: url(./images/bg-card-back.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 447px;
+      height: 245px;
+      position: absolute;
+      left: 13em;
+      top: 22em;
+      -webkit-box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      -moz-box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      box-shadow: 30px 25px 50px rgb(0 0 0 / 15%);
+      border-radius: 15px;
+    }
+
+    .backCard p {
+      position: relative;
+      top: 6.2em;
+      left: 19em;
+      letter-spacing: 3px;
+      color: white;
+    }
+
+    .formInfoFlex {
+      display: flex;
+      flex-direction: column;
+      max-width: 25%;
+    }
+
+    .inputDesign,
+    .inputDesignSmall,
+    .inputDesignMedium {
+      height: 2.5em;
+      border: 1px solid hsl(270, 3%, 87%);
+      border-radius: 5px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: hsl(279, 6%, 55%);
+      padding-left: 1em;
+      outline: none;
+    }
+
+    .inputDesign {
+      width: 20em;
+    }
+
+    .inputDesignSmall {
+      width: 5em;
+    }
+
+    .inputDesignMedium {
+      width: 6em;
+    }
+
+    .bottomInfoFlex .labelText {
+      flex-wrap: wrap;
+    }
+
+    .bottomInfoFlex {
+      display: flex;
+      max-width: 100%;
+    }
+
+    .labelText {
+      color: hsl(278, 68%, 11%);
+      margin: 1em 0 0.5em 0;
+      display: inline-block;
+    }
+
+    .buttonConfirm,
+    .buttonContinue {
+      padding: 1em;
+      background-color: hsl(278, 68%, 11%);
+      color: hsl(0, 0%, 100%);
+      border-radius: 10px;
+      margin-top: 2em;
+      width: 100%;
+    }
+
+    .errorBorder {
+      border-color: hsl(0, 100%, 66%);
+    }
+
+    .errorSpan {
+      font-size: 0.6em;
+      margin-top: 0.5em;
+      color: hsl(0, 100%, 66%);
+      display: inherit;
+    }
+
+    .displayNone {
+      display: none !important;
+    }
+
+    .successDiv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .success {
+      background-image: url(./images/icon-complete.svg);
+      background-repeat: no-repeat;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 2em;
+    }
+
+    .thanking {
+      font-size: 2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5em;
+    }
+
+    @media screen and (max-width: 375px) {
+      .backgroundImage {
+        display: none;
+      }
+
+      .backgroundImageMobile {
+        display: initial;
+        max-width: 100vw;
+        max-height: 100vh;
+      }
+
+      .backgroundFlex {
+        flex-direction: column;
+        max-width: 100%;
+      }
+
+      .frontCard {
+        width: 240px;
+        height: 140px;
+        left: 1em;
+        top: 7em;
+        z-index: 1;
+      }
+
+      .backCard {
+        top: 2em;
+        width: 240px;
+        height: 140px;
+        left: 4em;
+        z-index: 0;
+      }
+
+      .ballFlex {
+        margin: 1em 0 0 1em;
+      }
+
+      .whiteBall {
+        width: 30px;
+        height: 30px;
+      }
+
+      .frontCardInfoDiv {
+        top: 1.5em;
+        left: 0.5em;
+      }
+
+      .frontCardInfoDiv .frontCardTopInfo {
+        font-size: 0.8em;
+        margin-top: 1em;
+      }
+
+      .frontCardLowerInfo {
+        margin-top: 1.5em;
+        font-size: 0.5em;
+      }
+
+      .backCard p {
+        top: 4.3em;
+        left: 12.5em;
+        font-size: 0.8em;
+      }
+
+      .formInfoFlex {
+        max-width: 100%;
+        margin-top: 2.5em;
+        margin-left: 2em;
+        margin-right: 2em;
+      }
+
+      .labelText {
+        font-size: 0.8em;
+      }
+
+      .inputDesign {
+        width: auto;
+      }
+
+      .inputDesignSmall {
+        width: 4em;
+      }
+
+      .inputDesignMedium {
+        width: 6em;
+      }
+
+      .bottomInfoFlex {
+        justify-content: space-between;
+      }
+
+      .bottomInfoFlex div:first-child {
+        max-width: 50%;
+      }
+
+      .bottomInfoFlex div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .successDiv {
+        margin-top: 4em;
+      }
+
+      .attribution {
+        margin-top: 2em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="backgroundFlex">
+      <div class="divBackgroundImage">
+        <img src="./images/bg-main-desktop.png" alt="background-image" class="backgroundImage">
+        <img src="./images/bg-main-mobile.png" alt="background-image" class="backgroundImageMobile">
+        <div class="frontCard">
+          <div class="ballFlex">
+            <div class="whiteBall"></div>
+            <div class="whiteBallOnlyBorder"></div>
+          </div>
+          <div class="frontCardInfoDiv">
+            <div class="frontCardTopInfo">
+              <p id="frontCardNumbers">0000 0000 0000 0000</p>
+            </div>
+            <div class="frontCardLowerInfo">
+              <p id="frontCardName">Jane Appleseed</p>
+              <div class="frontCardDateInfo">
+                <p id="frontCardMonth">00</p>
+                <p>/</p>
+                <p id="frontCardYear">00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="backCard">
+          <p id="backCardCVC">000</p>
+        </div>
+      </div>
+
+      <div class="formInfoFlex">
+        <label for="name" class="labelText">Cardholder Name</label>
+        <input type="text" id="name" class="inputDesign" maxlength="16" placeholder="e.g. Jane Appleseed">
+        <span class="errorSpan displayNone" id="spanName">Can't be blank</span>
+
+        <label for="number" class="labelText">Card Number</label>
+        <input type="text" id="number" class="inputDesign" maxlength="16" placeholder="e.g. 1234 5678 9123 0000">
+        <span class="errorSpan displayNone" id="spanNumber">Wrong format, numbers only.</span>
+        <div class="bottomInfoFlex">
+          <div>
+            <label for="month" class="labelText">Exp. Date (MM/YY)</label>
+            <input type="text" id="month" class="inputDesignSmall" maxlength="2" placeholder="MM">
+            <input type="text" id="year" class="inputDesignSmall" maxlength="4" placeholder="YY">
+            <span class="errorSpan displayNone" id="spanDate">Can't be blank</span>
+          </div>
+          <div>
+            <label for="cvcInput" class="labelText">CVC</label>
+            <input type="text" id="cvcInput" class="inputDesignMedium" maxlength="3" placeholder="e.g. 123">
+            <span class="errorSpan displayNone" id="spanCVC">Can't be blank</span>
+          </div>
+        </div>
+        <button class="buttonConfirm" id="buttonConfirm">Confirm</button>
+      </div>
+
+      <div class="successDiv displayNone">
+        <div class="success"></div>
+        <p class="thanking">Thank you!</p>
+        <p class="thankingDescription">We've added your card details</p>
+        <button class="buttonContinue" id="buttonContinue">Continue</button>
+      </div>
+    </div>
+  </main>
+  <div class=" attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://github.com/JuanTxra">João Teixeira</a>.
+  </div>
+  <script>
+    const spanNumber = document.getElementById('spanNumber');
+    const spanDate = document.getElementById('spanDate');
+    const spanCVC = document.getElementById('spanCVC');
+    const spanName = document.getElementById('spanName');
+
+    const inputName = document.getElementById('name');
+    const frontCardName = document.getElementById('frontCardName');
+
+    inputName.addEventListener('keyup', (e) => {
+      if (inputName.classList.contains('errorBorder')) {
+        inputName.classList.remove('errorBorder');
+        spanName.classList.add('displayNone');
+      }
+      if (e.target.value == '' || e.key == 'backspace') {
+        frontCardName.innerHTML = 'Jane Appleseed'
+      } else {
+        frontCardName.innerHTML = inputName.value;
+      }
+    });
+
+    const inputNumber = document.getElementById('number');
+    const frontCardNumbers = document.getElementById('frontCardNumbers');
+
+    inputNumber.addEventListener('keyup', (e) => {
+      if (inputNumber.classList.contains('errorBorder')) {
+        inputNumber.classList.remove('errorBorder');
+        spanNumber.classList.add('displayNone');
+      }
+      if (e.target.value == '' || e.key == 'backspace') {
+        frontCardNumbers.innerHTML = '0000 0000 0000 0000'
+      } else {
+        frontCardNumbers.innerHTML = inputNumber.value.toString().match(/.{1,4}/g).join(' ');
+      }
+    });
+
+    const inputMonth = document.getElementById('month');
+    const frontCardMonth = document.getElementById('frontCardMonth');
+
+    inputMonth.addEventListener('keyup', (e) => {
+      if (inputMonth.classList.contains('errorBorder')) {
+        inputMonth.classList.remove('errorBorder');
+        spanDate.classList.add('displayNone');
+      }
+      if (e.target.value == '' || e.key == 'backspace') {
+        frontCardMonth.innerHTML = '00'
+      } else {
+        frontCardMonth.innerHTML = inputMonth.value;
+      }
+    });
+
+    const inputYear = document.getElementById('year');
+    const frontCardYear = document.getElementById('frontCardYear');
+
+    inputYear.addEventListener('keyup', (e) => {
+      if (inputYear.classList.contains('errorBorder')) {
+        inputYear.classList.remove('errorBorder');
+        spanDate.classList.add('displayNone');
+      }
+      if (e.target.value == '' || e.key == 'backspace') {
+        frontCardYear.innerHTML = '00'
+      } else {
+        frontCardYear.innerHTML = inputYear.value;
+      }
+    });
+
+    const cvcInput = document.getElementById('cvcInput');
+    const backCardCVC = document.getElementById('backCardCVC');
+
+    cvcInput.addEventListener('keyup', (e) => {
+      if (cvcInput.classList.contains('errorBorder')) {
+        cvcInput.classList.remove('errorBorder');
+        spanCVC.classList.add('displayNone');
+      }
+      if (e.target.value == '' || e.key == 'backspace') {
+        backCardCVC.innerHTML = '000'
+      } else {
+        backCardCVC.innerHTML = cvcInput.value;
+      }
+    });
+
+    const buttonConfirm = document.getElementById('buttonConfirm');
+
+    buttonConfirm.addEventListener('click', () => {
+
+      if (inputName.value == '') {
+        inputName.classList.add('errorBorder');
+        spanName.innerHTML = 'Can\'t be blank'
+        spanName.classList.remove('displayNone');
+        return
+      }
+
+      if (isNaN(Number(inputNumber.value))) {
+        inputNumber.classList.add('errorBorder');
+        spanNumber.innerHTML = 'Wrong format, numbers only.'
+        spanNumber.classList.remove('displayNone');
+        return
+      } else if (inputNumber.value.length !== 16) {
+        inputNumber.classList.add('errorBorder');
+        spanNumber.innerHTML = 'You must enter all 16 digits.'
+        spanNumber.classList.remove('displayNone');
+      }
+
+      if (isNaN(Number(inputMonth.value))) {
+        inputMonth.classList.add('errorBorder');
+        spanDate.innerHTML = 'Wrong format, numbers only.'
+        spanDate.classList.remove('displayNone');
+        return
+      } else if (isNaN(Number(inputYear.value))) {
+        inputYear.classList.add('errorBorder');
+        spanDate.innerHTML = 'Wrong format, numbers only.'
+        spanDate.classList.remove('displayNone');
+        return
+      }
+
+      if (inputMonth.value == '') {
+        inputMonth.classList.add('errorBorder');
+        spanDate.innerHTML = 'Can\'t be blank'
+        spanDate.classList.remove('displayNone');
+        return
+      } else if (inputYear.value == '') {
+        inputYear.classList.add('errorBorder');
+        spanDate.innerHTML = 'Can\'t be blank'
+        spanDate.classList.remove('displayNone');
+        return
+      }
+
+      if (cvcInput.value == '') {
+        cvcInput.classList.add('errorBorder');
+        spanCVC.innerHTML = 'Can\'t be blank'
+        spanCVC.classList.remove('displayNone');
+        return
+      }
+
+      document.getElementsByClassName('successDiv')[0].classList.remove('displayNone');
+      document.getElementsByClassName('formInfoFlex')[0].classList.add('displayNone');
+    })
+
+    const buttonContinue = document.getElementById('buttonContinue');
+
+    buttonContinue.addEventListener('click', () => {
+      frontCardName.innerHTML = 'Jane Appleseed'
+      frontCardNumbers.innerHTML = '0000 0000 0000 0000'
+      frontCardMonth.innerHTML = '00'
+      frontCardYear.innerHTML = '00'
+      backCardCVC.innerHTML = '000'
+
+      inputName.value = '';
+      inputNumber.value = '';
+      inputMonth.value = '';
+      inputYear.value = '';
+      cvcInput.value = '';
+
+      document.getElementsByClassName('successDiv')[0].classList.add('displayNone');
+      document.getElementsByClassName('formInfoFlex')[0].classList.remove('displayNone');
+
+    })
+  </script>
+</body>
+
+</html>
